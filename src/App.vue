@@ -1,5 +1,10 @@
 <template>
   <v-app>
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>
+        VMG Ware Sites
+      </v-toolbar-title>
+    </v-app-bar>
     <v-main>
       <v-container>
         <v-data-table :headers="headers" :items="sites" class="elevation-1">
@@ -24,13 +29,14 @@ const sites = ref([
   // vmgware.dev
   {
     domain: "vmgware.dev",
-    description: "VMG Ware",
+    description: "The official website of VMG Ware",
     logo: "data:image/png;base64,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",
   },
   // yasifys.vmgware.dev
   {
     domain: "yasifys.vmgware.dev",
-    description: "Yet Another Site I Forgot About",
+    description:
+      "A user-friendly website offering a fast and reliable tool for downloading videos from popular platforms like YouTube and TikTok, supporting various formats and resolutions for convenient offline viewing.",
     logo: "https://yasifys.vmgware.dev/favicon/android-chrome-512x512.png",
   },
   // answer.vmgware.dev
