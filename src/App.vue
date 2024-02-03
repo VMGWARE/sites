@@ -1,13 +1,25 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <v-toolbar-title>
-        VMG Ware Sites
-      </v-toolbar-title>
+      <v-toolbar-title> VMG Ware Sites </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <!-- This pushes the search field to the right -->
+      <v-text-field
+        flat
+        solo-inverted
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        label="Search"
+        v-model="search"
+      ></v-text-field>
     </v-app-bar>
     <v-main>
       <v-container>
-        <v-data-table :headers="headers" :items="sites" class="elevation-1">
+        <v-data-table
+          :headers="headers"
+          :items="filteredSites"
+          class="elevation-1"
+        >
           <template #item.domain="{ item }">
             <a :href="'https://' + item.domain" target="_blank">{{
               item.domain
@@ -23,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const sites = ref([
   // vmgware.dev
@@ -170,6 +182,20 @@ const headers = ref([
   { title: "Domain", value: "domain" },
   { title: "Description", value: "description" },
 ]);
+
+const search = ref("");
+
+// Filter sites based on search query
+const filteredSites = computed(() => {
+  if (!search.value) {
+    return sites.value;
+  }
+  return sites.value.filter(
+    (site) =>
+      site.domain.toLowerCase().includes(search.value.toLowerCase()) ||
+      site.description.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
 </script>
 
 <style>
