@@ -1,0 +1,19 @@
+when:
+  - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+
+variables:
+  - &node_image "node:18"
+
+steps:
+  Deploy to CapRover:
+    image: *node_image
+    secrets: [caprover_password, caprover_url, caprover_name]
+    commands:
+      - npm install -g caprover
+      - caprover login
+      - caprover deploy -n caprover -a vmgware-sites -b master
+    when:
+      event: [push]
+      branch: ${CI_REPO_DEFAULT_BRANCH}
