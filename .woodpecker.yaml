@@ -9,7 +9,7 @@ variables:
 steps:
   Deploy to CapRover:
     image: *node_image
-    secrets: [caprover_password, caprover_url, caprover_name]
+    secrets: [app_token, caprover_url, caprover_name]
     commands:
       - npm install -g caprover
       - caprover login
