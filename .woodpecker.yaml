@@ -9,11 +9,10 @@ variables:
 steps:
   Deploy to CapRover:
     image: *node_image
-    secrets: [caprover_password, caprover_url, caprover_name]
+    secrets: [caprover_url, app_token, app_name]
     commands:
       - npm install -g caprover
-      - caprover login
-      - caprover deploy -n caprover -a vmgware-sites -b master
+      - caprover deploy --caproverUrl $CAPROVER_URL --appToken $APP_TOKEN --appName $APP_NAME --branch $CI_COMMIT_REF_NAME
     when:
       event: [push]
       branch: ${CI_REPO_DEFAULT_BRANCH}
