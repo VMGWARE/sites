@@ -12,7 +12,7 @@ steps:
     secrets: [caprover_url, app_token, app_name]
     commands:
       - npm install -g caprover
-      - caprover deploy --caproverUrl $CAPROVER_URL --appToken $APP_TOKEN --appName $APP_NAME -b $CI_COMMIT_REF_NAME
+      - caprover deploy --caproverUrl $CAPROVER_URL --appToken $APP_TOKEN --appName $APP_NAME -b $CI_REPO_DEFAULT_BRANCH
     when:
       event: [push]
       branch: ${CI_REPO_DEFAULT_BRANCH}
