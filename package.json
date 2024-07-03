@@ -1,6 +1,5 @@
 {
   "name": "vmgware-sites",
-  "module": "index.ts",
   "devDependencies": {
     "@types/bun": "^1.1.6",
     "lightningcss": "^1.25.1"
